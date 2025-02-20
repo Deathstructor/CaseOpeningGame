@@ -1,24 +1,46 @@
 // Header files
 #include "common.h";
 #include "navbar.h";
-
-// Source files
-//#include "sidebar.cpp";
-
-using namespace std;
+#include "cases.h";
 
 int main() {
 	SetTargetFPS(targetFPS);
 	InitWindow(screenWidth, screenHeight, "Case Opening Game");
 
-	while (!WindowShouldClose()) {
+	loadCaseImages();
+	
+	bool exit = false;
+
+	while (!WindowShouldClose() && !exit) {
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
 		drawNavbar();
 
+		switch (selectedNavbarItem) {
+		case 0:
+			// Cases
+			drawCases();
+			break;
+		case 1:
+			// Inventory
+			break;
+		case 2:
+			// Settings
+			break;
+		case 3:
+			// Exit
+			exit = true;
+			break;
+		default:
+			// Cases
+			break;
+		}
+
 		EndDrawing();
 	}
+
+	unloadCaseImages();
 
 	return 0;
 }
