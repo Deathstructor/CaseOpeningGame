@@ -198,21 +198,24 @@ int itemYPosition = 50;
 
 void drawCases() {
     itemYPosition += GetMouseWheelMove() * scrollSpeed;
+    
     if (itemYPosition >= 50) {
 		itemYPosition = 50;
 	}
-
     if (itemYPosition <= -(50 + ((casesCount - 1) / 4) * 300) + 650) {
         itemYPosition = -(50 + ((casesCount - 1) / 4) * 300) + 650;
 	}
 
-	cout << itemYPosition << endl;
-
 	for (int i = 0; i < casesCount; i++) {
-        Vector2 textSize = MeasureTextEx(GetFontDefault(), TextFormat("%02.02f", cases[i].price), 20.0f, 2.0f);
-        DrawText(TextFormat("$%02.02f", cases[i].price), (30 + (i % 4) * 300), itemYPosition + (i / 4) * 300 + 230, 20, WHITE);
-
+		Rectangle caseBox = { 20 + (i % 4) * 300, itemYPosition + 25 + (i / 4) * 300, 260, 280 };
 	    Rectangle caseTextBox = { 30 + (i % 4) * 300, itemYPosition + (i / 4) * 300 + 260, 230, 50 };
+        
+        Vector2 textSize = MeasureTextEx(GetFontDefault(), TextFormat("%02.02f", cases[i].price), 20.0f, 2.0f);
+
+		bool checkCaseBoxHover = CheckCollisionPointRec(GetMousePosition(), caseBox);
+
+        DrawRectangleRounded(caseBox, 0.1f, 12, checkCaseBoxHover ? BLUE : BLANK);
+        DrawText(TextFormat("$%02.02f", cases[i].price), (30 + (i % 4) * 300), itemYPosition + (i / 4) * 300 + 230, 20, WHITE);
 		DrawTexture(cases[i].image, 20 + (i % 4) * 300, itemYPosition + (i / 4) * 300, WHITE);
 		DrawTextBoxed(cases[i].name, caseTextBox, 20.0f, 2.0f, true, WHITE);
 	}
