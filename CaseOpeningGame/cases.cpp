@@ -194,24 +194,26 @@ static void DrawTextBoxedSelectable(Font font, const char* text, Rectangle rec, 
     }
 }
 
-void drawCases() {
-	for (int i = 0; i < casesCount; i++) {
-        Vector2 textSize = MeasureTextEx(GetFontDefault(), TextFormat("%02.02f", cases[i].price), 20.0f, 2.0f);
-        DrawText(TextFormat("$%02.02f", cases[i].price), (30 + (i % 4) * 300), 50 + (i / 4) * 300 + 230, 20, WHITE);
+int itemYPosition = 50;
 
-	    Rectangle caseTextBox = { 30 + (i % 4) * 300, 50 + (i / 4) * 300 + 260, 230, 50 };
-		DrawTexture(cases[i].image, 20 + (i % 4) * 300, 50 + (i / 4) * 300, WHITE);
-		DrawTextBoxed(cases[i].name, caseTextBox, 20.0f, 2.0f, true, WHITE);
-		//DrawText(cases[i].name, 30 + (i % 4) * 300, 50 + (i / 4) * 300 + 230, 20, WHITE);
+void drawCases() {
+    itemYPosition += GetMouseWheelMove() * scrollSpeed;
+    if (itemYPosition >= 50) {
+		itemYPosition = 50;
 	}
 
-    //for (int i = 0; i < casesCount; i++) {
-    //    Vector2 textSize = MeasureTextEx(GetFontDefault(), to_string(cases[i].price).c_str(), 20.0f, 2.0f);
-    //    DrawText(to_string(cases[i].price).c_str(), ((30 + (i % 4) * 300) - textSize.x) / 2, 50 + (i / 4) * 300 + 230, 20, WHITE);
+    if (itemYPosition <= -(50 + ((casesCount - 1) / 4) * 300) + 650) {
+        itemYPosition = -(50 + ((casesCount - 1) / 4) * 300) + 650;
+	}
 
-    //    Rectangle caseTextBox = { 30 + (i % 4) * 300, 50 + (i / 4) * 300 + 250, 230, 50 };
-    //    DrawTexture(cases[i].image, 20 + (i % 4) * 300, 50 + (i / 4) * 300, WHITE);
-    //    DrawTextBoxed(cases[i].name, caseTextBox, 20.0f, 2.0f, true, WHITE);
-    //    //DrawText(cases[i].name, 30 + (i % 4) * 300, 50 + (i / 4) * 300 + 230, 20, WHITE);
-    //}
+	cout << itemYPosition << endl;
+
+	for (int i = 0; i < casesCount; i++) {
+        Vector2 textSize = MeasureTextEx(GetFontDefault(), TextFormat("%02.02f", cases[i].price), 20.0f, 2.0f);
+        DrawText(TextFormat("$%02.02f", cases[i].price), (30 + (i % 4) * 300), itemYPosition + (i / 4) * 300 + 230, 20, WHITE);
+
+	    Rectangle caseTextBox = { 30 + (i % 4) * 300, itemYPosition + (i / 4) * 300 + 260, 230, 50 };
+		DrawTexture(cases[i].image, 20 + (i % 4) * 300, itemYPosition + (i / 4) * 300, WHITE);
+		DrawTextBoxed(cases[i].name, caseTextBox, 20.0f, 2.0f, true, WHITE);
+	}
 }

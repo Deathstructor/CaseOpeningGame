@@ -15,8 +15,6 @@ int main() {
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
-		drawNavbar();
-
 		switch (selectedNavbarItem) {
 		case 0:
 			// Cases
@@ -36,6 +34,8 @@ int main() {
 			// Cases
 			break;
 		}
+
+		drawNavbar();
 
 		EndDrawing();
 	}
