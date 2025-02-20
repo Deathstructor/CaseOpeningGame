@@ -12,3 +12,5 @@ constexpr int targetFPS = 60;
 constexpr int screenWidth = 1200;
 constexpr int screenHeight = 900;
 constexpr int scrollSpeed = 50;
+
+extern float balance;

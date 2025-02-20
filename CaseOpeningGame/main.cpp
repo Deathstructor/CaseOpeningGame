@@ -3,6 +3,8 @@
 #include "navbar.h";
 #include "cases.h";
 
+float balance = 20.0f; // CHANGE TO USE SAVED BALANCE IN FUTURE!!!
+
 int main() {
 	SetTargetFPS(targetFPS);
 	InitWindow(screenWidth, screenHeight, "Case Opening Game");

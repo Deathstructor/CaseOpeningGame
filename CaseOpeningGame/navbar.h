@@ -2,7 +2,7 @@
 
 #include "common.h";
 
-constexpr int navbarItemCount = 4;
+constexpr int navbarItemCount = 5;
 constexpr int navbarItemWidth = screenWidth / navbarItemCount;
 constexpr int navbarItemHeight = 50;
 extern int selectedNavbarItem;
